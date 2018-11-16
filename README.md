@@ -1,2 +1,2 @@
-# webhooks-test
-Webhooks playground
+# releases-test
+releases playground
