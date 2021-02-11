@@ -22,7 +22,7 @@ jobs:
       displayName: 'Copy repo contents to artifact location'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: '**'
+        Contents: 'very-important-item.txt'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
       condition: succeededOrFailed()
 
