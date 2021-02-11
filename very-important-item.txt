@@ -1,2 +1,3 @@
 very important, build plz, must be released asap
 also includes bugfix, quick!!!
+it looks like the commit needs to be linked
