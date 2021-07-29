@@ -33,7 +33,6 @@ jobs:
         ArtifactName: 'for-deploy'
       condition: succeededOrFailed()
       
-jobs:
 - deployment: MyRelease
   displayName: My yaml deployment
   pool:                # see pool schema
