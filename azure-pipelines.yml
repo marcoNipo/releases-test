@@ -33,13 +33,28 @@ jobs:
         ArtifactName: 'for-deploy'
       condition: succeededOrFailed()
       
-- deployment: MyRelease
-  displayName: My yaml deployment
-  pool:
-    vmImage: windows-2019
-  environment: marco
-  strategy:
-    runOnce:
-      deploy:
-        steps:
-        - script: echo deployment succeeded
+stages:
+- stage: stageRC
+  jobs:
+  - deployment: MyRelease
+    displayName: My yaml deployment
+    pool:
+      vmImage: windows-2019
+    environment: marco
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo RC deployment succeeded, yay!
+- stage: stageBeta
+  jobs:
+  - deployment: MyRelease
+    displayName: My yaml deployment to Beta
+    pool:
+      vmImage: windows-2019
+    environment: beta
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Beta deployment succeeded, yay!
