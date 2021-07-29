@@ -41,4 +41,5 @@ jobs:
   strategy:
     runOnce:
       deploy:
+        steps:
         - script: echo deployment succeeded
