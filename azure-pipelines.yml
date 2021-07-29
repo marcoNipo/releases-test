@@ -8,32 +8,31 @@ pr:
     # always build pull requests
     include: ['*']
 
-jobs:
-- job: BuildProject
-  displayName: Build project
-  pool:
-    vmImage: windows-2019 # Name: Hosted Windows 2019 with VS 2019
-  steps:
-  
-    - checkout: self
-      path: 's'
-      fetchDepth: 0
-    - task: CopyFiles@2
-      displayName: 'Copy repo contents to artifact location'
-      inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: 'very-important-item.txt'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      condition: succeededOrFailed()
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: for-deploy'
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'for-deploy'
-      condition: succeededOrFailed()
-      
 stages:
+- stage: TheBuildTM
+  jobs:
+  - job: BuildProject
+    displayName: Build project
+    pool:
+      vmImage: windows-2019 # Name: Hosted Windows 2019 with VS 2019
+    steps:
+      - checkout: self
+        path: 's'
+        fetchDepth: 0
+      - task: CopyFiles@2
+        displayName: 'Copy repo contents to artifact location'
+        inputs:
+          SourceFolder: '$(System.DefaultWorkingDirectory)'
+          Contents: 'very-important-item.txt'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        condition: succeededOrFailed()
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: for-deploy'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'for-deploy'
+        condition: succeededOrFailed()
+      
 - stage: stageRC
   jobs:
   - deployment: MyRelease
@@ -46,6 +45,7 @@ stages:
         deploy:
           steps:
           - script: echo RC deployment succeeded, yay!
+          
 - stage: stageBeta
   jobs:
   - deployment: MyRelease
