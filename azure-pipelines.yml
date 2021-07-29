@@ -35,10 +35,10 @@ jobs:
       
 - deployment: MyRelease
   displayName: My yaml deployment
-  pool:                # see pool schema
+  pool:
     vmImage: windows-2019
-  environment: string  # target environment name and optionally a resource name to record the deployment history; format: <environment-name>.<resource-name>
+  environment: marco
   strategy:
-    runOnce:    #rolling, canary are the other strategies that are supported
+    runOnce:
       deploy:
         - script: echo deployment succeeded
